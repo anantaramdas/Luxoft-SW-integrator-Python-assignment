@@ -46,3 +46,12 @@ Please run `python main.py --help` for more execution information
 `$ python main.py ./example/dest/ ./example/test_3` will unpack multipart archive to target directory
 
 `$ python main.py ./example/dest/ ./example/test_4` will unpack with inner multipart archive to `./example/dest folder
+
+## Extending
+
+You could easily add new type of archive by extending `ArchiveAbstract` class and implementing `extensions`
+`decompress` methods. You could use two existing implementations (`Archive7Zip` and `ArchiveZip`) as an example.
+
+## Limitations
+
+Only 7Zip utility created multipart archive currently supported. 

@@ -1,5 +1,8 @@
 import os
 import os.path
+import zipfile
+
+import pyunpack
 
 from classes.ArchiveZip import ArchiveZip
 from classes.Archive7Zip import Archive7Zip
@@ -84,8 +87,41 @@ class Unpacker:
             for el in self.files:
                 try:
                     el.decompress(dir_path)
-                except OSError:
+
+                except OSError as e:
                     print("Error: Looks like file is corrupted - aborting")
+                    print("Error message is: " + str(e))
+
+                    exit(-1)
+
+                except zipfile.BadZipFile as e:
+                    if str(e).find("File is not a zip file") == -1:
+                        # Is not correct zip file related error
+                        print("Error message is: " + str(e))
+                    else:
+                        print("Error message is: File is not a zip file or corrupted")
+
+                    exit(-1)
+
+                except pyunpack.PatoolError as e:
+                    if str(e).find("could not find an executable") == -1:
+                        # Is not executable related error
+                        print("Error message is: " + str(e))
+                    else:
+                        print("Error message is: could not find an executable for this archive in your system. Kindly "
+                              "install one using your favorite package manager")
+
+                    exit(-1)
+
+                except RuntimeError as e:
+                    print("Error occurred during unpacking - aborting")
+
+                    if str(e).find("password") == -1:
+                        # Is not password related runtime error
+                        print("Error message is: " + str(e))
+                    else:
+                        print("Error message is: file is password protected")
+
                     exit(-1)
 
             # Making list of files empty and checking if any nested archives being compressed

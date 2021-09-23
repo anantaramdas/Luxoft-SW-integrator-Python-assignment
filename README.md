@@ -15,8 +15,16 @@ Script should contain `main()` function which can provide information and execut
 ## Setup and execution
 
 ### Prerequisites
-
 You should have `python` installed on your machine in order to run this. I have used and tested this only on `3.9.7`
+
+Make sure you have appropriate version of `diskutils` python package installed in your system and keep `pip` updated using:
+```bash
+pip install --upgrade pip
+```
+or on Windows:
+```bash
+python -m pip install --upgrade pip
+```
 
 You should install all dependencies using `pipenv` by running 
 
@@ -29,6 +37,13 @@ or manually running:
 ```bash
 pip install patool pyunpack
 ```
+
+Also make sure that appropriate (for *.7z and *.zip files) archive packages are installed in your system.
+For Ubuntu please use
+```bash
+sudo apt install p7zip-full zip
+```
+to install both.
 
 ### Execution
 Run this program as ordinary python application providing as a first argument destination path followed my archive(-s) to extract 
